@@ -9,6 +9,7 @@
 #     https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
+LOG_LEVEL = 'INFO'
 BOT_NAME = 'codeforces'
 
 SPIDER_MODULES = ['codeforces.spiders']

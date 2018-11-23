@@ -10,6 +10,7 @@ class RatingsSpider(scrapy.Spider):
     start_urls = ['http://codeforces.com/ratings/page/1']
 
     def parse(self, response):
+        self.logger.info('downloaded page ' + response.url)
         trs = response.css(
             '#pageContent > div.datatable.ratingsDatatable > div:nth-child(6) > table > tr')
         for tr in trs[1:]:
