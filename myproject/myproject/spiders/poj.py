@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import scrapy
 
+from myproject.items import PojSubmission
+
 
 class PojSpider(scrapy.Spider):
     name = 'poj'
@@ -19,17 +21,19 @@ class PojSpider(scrapy.Spider):
             if font[0] != 'Accepted':
                 tds.insert(1, '0MS')
                 tds.insert(1, '0K')
-            yield {
-                'runid': tds[0],
-                'user': srcs[0],
-                'problem': srcs[1],
-                'result': font[0],
-                'memory': tds[1],
-                'time': tds[2],
-                'language': tds[3],
-                'code_length': tds[4],
-                'submit_time': tds[5]
-            }
+
+            submission = PojSubmission()
+            submission['run_id'] = tds[0]
+            submission['user'] = srcs[0]
+            submission['problem'] = srcs[1]
+            submission['result'] = font[0]
+            submission['memory'] = tds[1]
+            submission['time'] = tds[2]
+            submission['language'] = tds[3]
+            submission['code_length'] = tds[4]
+            submission['submit_time'] = tds[5]
+
+            yield submission
 
             if first_line_flag:
                 yield scrapy.Request(url='http://poj.org/status?user_id={username}&bottom={bottom}'.format(username=self.username, bottom=tds[0]))
