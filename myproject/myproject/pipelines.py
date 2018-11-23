@@ -9,3 +9,11 @@
 class MyprojectPipeline(object):
     def process_item(self, item, spider):
         return item
+
+
+class PojPipeline(object):
+    def process_item(self, item, spider):
+        if item['result'] != 'Accepted':
+            item['time'] = '-1MS'
+            item['memory'] = '-1K'
+        return item
